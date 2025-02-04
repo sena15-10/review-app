@@ -1,0 +1,695 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #282c34;
+    color: white;
+}
+
+.container {
+    background-color: #292929;
+    min-height: 15vh;
+    display: flex;
+    margin-bottom: 120px;
+    font-size: calc(8px + 2vmin);
+    align-items: center;
+    color: white;
+}
+
+header .webName {
+    margin-left: 1rem;
+}
+
+
+.code {
+    color: #61dafb;
+}
+
+.code.active {
+    position: relative;
+    z-index: 51;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    margin-left:1rem ;
+}
+
+.title h1 {
+    margin-left: 1rem;
+}
+
+.navigation {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 50px;
+    height: 100vh;
+    top: 0;
+    left: -100%;
+    z-index: 50;
+    background-color: rgb(25, 25, 25,0.9);
+    box-shadow:1px 1px 1px 0px #282c34;
+    transition: left 0.5s ease-in-out;
+}
+
+.navigation.active {
+    left: 0;
+}
+
+.navigation a {
+    display: flex;
+    align-items: center;
+}
+
+
+.navigation span {
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+}
+
+
+.auth {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0 auto;
+}
+
+.auth button{
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    margin:  0 10px;
+    background-color:#282c34 ;
+    border: 1px solid #fff ;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.auth button:hover {
+    opacity: 0.8;
+}
+/*ランディングページのコード*/
+
+.landingPageDetail h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2rem;
+    letter-spacing: 0.2rem;
+    color: #fff;
+    border-bottom: 2px solid #61dafb;
+    padding-bottom: 10px;
+}
+
+.landingPageDetail {
+    background: rgba(97, 218, 251, 0.05);
+}
+
+.detailText > div {
+    margin-bottom:120px;
+}
+
+.topText {
+    margin: 0 auto;
+    max-width: 60rem;
+    height: 80vh;
+    text-align: center;
+    color: #fff;
+    background-color: #282c34;
+
+}
+
+.topText .blur {
+    position: relative;
+}
+
+.topText .blur::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250px;
+    height: 200px;
+    border:4px solid #61dafb;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -40%);
+    filter: blur(50px);
+}
+
+
+.topText h1 {
+    margin: 0 auto;
+    font-size: 2.5rem;
+    padding: 10px 5px;
+    border: none;
+}
+
+.topText  h1 span {
+    color: #4fd8fd;
+}
+
+.topText p {
+    margin-bottom:50px;
+    padding:5px;
+    font-size: 1.5rem;
+}
+
+/*コードレビューの説明*/
+
+
+.codeBlock {
+    background: #1E1E1E;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 40%;
+    min-width: 400px;
+}
+
+/* コードヘッダー部分 */
+.codeHeader {
+    background: #2D2D2D;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #404040;
+}
+
+.codeHeader span {
+    color: #CCCCCC;
+    font-family: 'Segoe UI', system-ui;
+    font-size: 0.9rem;
+}
+
+/* コードフィールド部分 */
+.codeField {
+    padding: 16px;
+}
+
+.codeField pre {
+    margin: 0;
+}
+
+.codeField code {
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* レビューセクションのスタイル改善 */
+.detailText {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px;
+    background: rgba(97, 218, 251, 0.05);
+    border-radius: 12px;
+    margin: 40px auto;
+    max-width: 1290px;
+}
+
+.review.detailText section {
+    width: 50%;
+    margin-right: 40px;
+}
+
+
+.review.detailText p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #e1e1e1;
+    margin-bottom: 1rem;
+}
+
+
+
+/* VSCode風のシンタックスハイライト */
+.hljs {
+    background: #1E1E1E !important;
+    color: #D4D4D4 !important;
+}
+
+.hljs-keyword {
+    color: #569CD6 !important;
+}
+
+.hljs-string {
+    color: #CE9178 !important;
+}
+
+.hljs-function {
+    color: #DCDCAA !important;
+}
+
+.hljs-comment {
+    color: #6A9955 !important;
+}
+
+
+
+/*コメント部分のテキスト*/
+/* コメントセクションのベーススタイル */
+.comment.detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px;
+    background: rgba(97, 218, 251, 0.05);
+    border-radius: 12px;
+    margin: 40px auto;
+    max-width: 1290px;
+}
+
+/* 説明部分のスタイル */
+.detailField {
+    width: 50%;
+    padding-right: 40px;
+}
+
+.detailField h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2rem;
+    color: #fff;
+    border-bottom: 2px solid #61dafb;
+    padding-bottom: 10px;
+}
+
+.detailField p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #e1e1e1;
+}
+
+/* チャット部分のスタイル */
+.communicationField {
+    width: 45%;
+    background: #1E1E1E;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ユーザーメッセージのベーススタイル */
+.user {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+.user span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background: #2D2D2D;
+    border-radius: 50%;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.user p {
+    background: #2D2D2D;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    max-width: 80%;
+}
+
+/* 他のユーザーのメッセージ */
+.user.other {
+    animation-delay: 0s;
+}
+
+.user.other span {
+    background: #404040;
+}
+
+.user.other p {
+    background: #404040;
+    border-top-left-radius: 4px;
+}
+
+/* 現在のユーザーのメッセージ */
+.user.current {
+    flex-direction: row-reverse;
+    animation-delay: 0.5s;
+}
+
+.user.current span {
+    margin-right: 0;
+    margin-left: 10px;
+    background: #61dafb;
+}
+
+.user.current p {
+    background: #2C5282;
+    border-top-right-radius: 4px;
+}
+
+/* アニメーション */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ホバーエフェクト */
+.user:hover {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+}
+
+/*communityのcss*/
+.community.detailText {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px;
+    background: rgba(97, 218, 251, 0.05);
+    border-radius: 12px;
+    margin: 40px auto;
+    max-width: 1290px;
+}
+
+.ThreadField {
+    width: 45%;
+    background: #1E1E1E;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.thread {
+    background: #2D2D2D;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.thread:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(97, 218, 251, 0.1);
+}
+
+.thread .userInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 12px;
+}
+
+.thread .userIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #404040;
+    border-radius: 50%;
+    color: #61dafb;
+}
+
+.thread .content {
+    color: #e1e1e1;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+    padding: 12px;
+    background: #1E1E1E;
+    border-radius: 6px;
+}
+
+
+/* Benefitセクションのスタイル */
+.benefit.detailText {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    background: rgba(97, 218, 251, 0.05);
+    border-radius: 12px;
+    margin: 40px auto;
+    max-width: 1290px;
+}
+
+.benefitContent {
+    width: 100%;
+}
+
+.benefitContent h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    border-bottom: 2px solid #61dafb;
+    padding-bottom: 10px;
+}
+
+.benefit-intro {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #e1e1e1;
+    margin-bottom: 2rem;
+    max-width: 800px;
+}
+
+.benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-top: 2rem;
+}
+
+.benefit-card {
+    background: #1E1E1E;
+    border-radius: 12px;
+    padding: 24px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.benefit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #61dafb, #1f70cd);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(97, 218, 251, 0.15);
+}
+
+.benefit-card:hover::before {
+    opacity: 1;
+}
+
+.benefit-icon {
+    background: rgba(97, 218, 251, 0.1);
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    color: #61dafb;
+}
+
+.benefit-card h3 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.benefit-card p {
+    color: #e1e1e1;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.start {
+    display: flex;
+    justify-content: center;
+    margin : 3rem auto;
+}
+
+.start-button {
+    background: linear-gradient(135deg, #61dafb 0%, #345886 100%);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.start-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(97, 218, 251, 0.3);
+}
+
+
+
+
+
+/*フッターのコード*/
+.footer {
+    background: #1E1E1E;
+    padding: 60px 40px 20px;
+    color: #fff;
+    margin-top: 80px;
+}
+
+.footer-content {
+    max-width: 1290px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-brand {
+    flex: 2;
+}
+
+.footer-brand .webName {
+    font-size: 2rem;
+    margin: 0 0 16px;
+    color: #61dafb;
+    font-weight: bold;
+}
+
+.footer-description {
+    color: #e1e1e1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+.footer-sections {
+    flex: 3;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-section h3 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    color: #e1e1e1;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.footer-section ul li:hover {
+    color: #61dafb;
+}
+
+.footer-bottom {
+    max-width: 1290px;
+    margin: 20px auto 0;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.copyright {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 16px;
+}
+
+.social-link {
+    color: #e1e1e1;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(97, 218, 251, 0.1);
+}
+
+.social-link:hover {
+    color: #61dafb;
+    transform: translateY(-2px);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+    }
+
+    .footer-sections {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+}

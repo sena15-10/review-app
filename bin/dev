@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# foreman がインストールされていない場合はインストール
+if ! gem list foreman -i >/dev/null 2>&1; then
+  echo "Installing foreman..."
+  gem install foreman
+fi
+
+# デフォルトポートの設定
+export PORT="${PORT:-3000}"
+export RAILS_PORT="${RAILS_PORT:-3000}"
+export REACT_PORT="${REACT_PORT:-3001}"
+
+# Procfile.dev を使用して起動
+exec foreman start -f Procfile.dev "$@"
