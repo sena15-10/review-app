@@ -5,11 +5,16 @@
 
 # Read more: https://github.com/cyu/rack-cors
 
+# config/initializers/cors.rb
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:3000'
-    resource "*",
+    origins 'http://localhost:3001'  # Reactアプリのポート番号に注意
+    
+    resource '*',
       headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+      methods: %w[GET POST PUT PATCH DELETE OPTIONS],
+      max_age: 86400,
+      credentials: true,
+      expose: ['access-token', 'expiry', 'token-type', 'uid', 'client']
   end
 end

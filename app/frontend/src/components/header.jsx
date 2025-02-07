@@ -1,10 +1,13 @@
 import React,{useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,useLocation} from 'react-router-dom';
 import { Code2, MessageSquare, Home, Send, LogIn, UserPlus, LogOut, User,MessageSquareTextIcon } from 'lucide-react';
-import SingUp from "./sessionPage/signUp"
 const Header = () => {
     const isLoggedIn = false;
+    const hideButtonPaths = ["/login", "/signup"];
     const [isMenuOpen, setMenuOpen] = useState(false);
+    const location = useLocation();
+    const shouldHideButtons = hideButtonPaths.includes(location.pathname.toLowerCase());
+    
     const toggleMenu = () => {
         setMenuOpen(!isMenuOpen)
     }
@@ -44,26 +47,28 @@ const Header = () => {
 
                 {/* Auth Buttons */}
                 <div className="auth">
-                    {isLoggedIn ? (
-                        <>
-                            <button>
-                                <User size={20} />
-                                <span><img src="" alt="" className='icon'/></span>
-                            </button>
-                        </>
-                    ) : (
-                        <>
-                            <button className="">
-                                <LogIn size={20} />
-                                <span>Login</span>
-                            </button>
-                            <Link to={"./sessionPage/singUp"}>
-                                <button className="">
-                                    <UserPlus size={20} />
-                                    <span>Sign Up</span>
+                    {!shouldHideButtons && (
+                        isLoggedIn ? (
+                            <>
+                                <button>
+                                    <User size={20} />
+                                    <span><img src="" alt="" className='icon'/></span>
                                 </button>
-                            </Link>
-                        </>
+                            </>
+                        ) : (
+                            <>
+                                <button className="">
+                                    <LogIn size={20} />
+                                    <span>Login</span>
+                                </button>
+                                <Link to="/signup">
+                                    <button className="">
+                                        <UserPlus size={20} />
+                                        <span>Sign Up</span>
+                                    </button>
+                                </Link>
+                            </>
+                        )
                     )}
                 </div>
                 </div>
@@ -71,4 +76,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default Header

@@ -5,13 +5,14 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.0"
+    "react-dom": "^19.0.0"
   },
   "scripts": {
-    
     "dev": "node start-dev.js",
     "start": "PORT=3001 react-scripts start",
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.0.3"
   }
 }

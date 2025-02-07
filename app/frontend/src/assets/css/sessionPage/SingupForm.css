@@ -1,0 +1,147 @@
+
+/* フォームのコンテナ */
+.form-container {
+    max-width: 30rem;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+  }
+  
+  /* タイトル */
+  .form-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* 一般エラーメッセージ */
+  .error-container {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: #fee2e2;
+    border: 1px solid #dc2626;
+    border-radius: 0.25rem;
+    color: #dc2626;
+  }
+  
+  /* フォームグループ */
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  /* ラベル */
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* 入力フィールド */
+  .form-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.25rem;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+  
+  .form-input.error {
+    border-color: #dc2626;
+  }
+  
+  /* エラーメッセージ */
+  .error-text {
+    margin-top: 0.25rem;
+    color: #dc2626;
+    font-size: 0.875rem;
+  }
+  
+  /* パスワードバリデーション */
+  .validation-list {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .validation-item {
+    margin-bottom: 0.25rem;
+  }
+  
+  .validation-success {
+    color: #10b981;
+  }
+  
+  .validation-error {
+    color: #dc2626;
+  }
+  
+  /* ボタン */
+  .submit-button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .submit-button:hover {
+    background-color: #2563eb;
+  }
+  
+  .submit-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* リンク */
+  .login-link {
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  .login-link a {
+    color: #3b82f6;
+    margin-left: 0.25rem;
+    text-decoration: none;
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* 認証コード入力フォーム */
+  .verification-input {
+    text-align: center;
+    font-size: 1.5rem;
+    letter-spacing: 0.5em;
+  }
+  
+  .verification-text {
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .resend-button {
+    color: #3b82f6;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .resend-button:hover {
+    text-decoration: underline;
+  }
+  
+  .resend-timer {
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
