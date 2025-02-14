@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1><%= @user.name %>様</h1>
+  <p>
+    アカウント登録ありがとうございます。<br>
+    以下の認証コードを入力して、登録を完了してください。
+  </p>
+  <div style="padding: 10px; background-color: #f5f5f5; border-radius: 5px; font-size: 24px; text-align: center; margin: 20px 0;">
+    <%= @code %>
+  </div>
+  <p>
+    このコードは30分間有効です。<br>
+    心当たりのない場合は、このメールを無視してください。
+  </p>
+</body>
+</html>

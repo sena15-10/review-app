@@ -1,11 +1,10 @@
-# app/services/verification_code_service.rb
 class VerificationCodeService
     def self.generate_code(user)
       code = sprintf('%06d', rand(000000..999999))
       
       verification_code = user.verification_codes.create!(
         code: code,
-        expires_at: 10.minutes.from_now,
+        expires_at: 30.minutes.from_now,
         last_sent_at: Time.current
       )
       

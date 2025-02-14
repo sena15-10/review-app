@@ -1,16 +1,18 @@
 const { spawn } = require('child_process');
 
-// Rails サーバーを起動
+// Rails サーバーを起動 (3000番ポート)
 const rails = spawn('bundle', ['exec', 'rails', 'server', '-p', '3000'], { 
   stdio: 'inherit',
-  shell: true
+  shell: true,
+  env: { ...process.env, RAILS_ENV: 'development' }  // 環境変数を明示的に設定
 });
 
-// React開発サーバーを起動（'dev' から 'start' に変更）
+// React開発サーバーを起動 (3001番ポート)
 const react = spawn('npm', ['start'], {
   shell: true,
   stdio: 'inherit',
-  cwd: 'app/frontend'  // フロントエンドのディレクトリパスを確認
+  cwd: 'app/frontend',
+  env: { ...process.env, PORT: '3001' }  // 環境変数でポートを設定
 });
 
 // プロセス終了時の処理
@@ -19,7 +21,6 @@ const cleanup = () => {
   rails.kill();
   react.kill();
   
-  // 強制終了のタイムアウトを設定
   setTimeout(() => {
     process.exit(0);
   }, 1000);

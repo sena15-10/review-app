@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import '../../assets/css/sessionPage/SingupForm.css';
 import Verification from "./Verification";
 import api from '../../config/api';
@@ -75,31 +75,44 @@ const SignUp = () => {
     setErrors({ ...errors, [name]: "" });
   };
 
-
-
-
+  //同じメールアドレスがいたら認証ページに飛ばない
 
     //登録ボタン押した後の処理
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setIsLoading(true);
-  try {
-    await api.signUp({
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-      password_confirmation: formData.passwordConfirmation
-    });
-    setShowVerification(true);
-  } catch (error) {
-    setErrors({
-      ...errors,
-      general: error.message
-    });
-  } finally {
-    setIsLoading(false);
-  }
-};
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (isLoading) return;
+      setIsLoading(true);
+      console.log('Sending data:', formData);
+      
+      try {
+        const response = await api.signUp(formData);
+        console.log('Signup success:', response);
+        setShowVerification(true);
+        
+      } catch (error) {
+        console.error('Error during signup:', error);
+        
+        // エラーメッセージの設定
+        if (error.message.includes('既に登録')) {
+          setErrors({
+            ...errors,
+            email: error.message
+          });
+        } else if (error.message.includes('Header Fields Too Large')) {
+          setErrors({
+            ...errors,
+            general: "リクエストヘッダーが大きすぎます。しばらく待ってから再試行してください。"
+          });
+        } else {
+          setErrors({
+            ...errors,
+            general: error.message || "サーバーとの通信に失敗しました"
+          });
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
 
 
