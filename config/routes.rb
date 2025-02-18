@@ -9,6 +9,7 @@ Rails.application.routes.draw do
           post 'resend_code'
         end
       end
+      resources :sessions, only: [:create, :destroy]
     end
   end
   if Rails.env.development?

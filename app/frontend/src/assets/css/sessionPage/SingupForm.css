@@ -145,3 +145,9 @@
     color: #6b7280;
     font-size: 0.875rem;
   }
+
+  .retry-timer {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #dc2626;
+  }

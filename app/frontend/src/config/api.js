@@ -1,3 +1,5 @@
+import Session from "../components/sessionPage/session";
+
 // api.js
 const API_CONFIG = {
   BASE_URL: '/api/v1'
@@ -6,7 +8,6 @@ const API_CONFIG = {
 const apiRequest = async (endpoint, options = {}) => {
   const url = `${API_CONFIG.BASE_URL}${endpoint}`;
   
-  // 必要最小限のヘッダーのみを設定
   const config = {
     ...options,
     headers: {
@@ -17,19 +18,20 @@ const apiRequest = async (endpoint, options = {}) => {
   try {
     const response = await fetch(url, config);
     
-    // エラーレスポンスの処理
     if (!response.ok) {
-      // レスポンスが存在し、JSONとして解析可能な場合
       const contentType = response.headers.get('content-type');
       if (contentType?.includes('application/json')) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'リクエストが失敗しました');
+        // エラーオブジェクトにステータスを追加
+        const error = new Error(errorData.message || 'リクエストが失敗しました');
+        error.status = response.status;  // ここでステータスを保持
+        throw error;
       }
-      // それ以外のエラー
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const error = new Error(`HTTP error! status: ${response.status}`);
+      error.status = response.status;  // ここでもステータスを保持
+      throw error;
     }
 
-    // 正常なレスポンスの処理
     const contentType = response.headers.get('content-type');
     if (contentType?.includes('application/json')) {
       return response.json();
@@ -38,7 +40,14 @@ const apiRequest = async (endpoint, options = {}) => {
 
   } catch (error) {
     console.error('API request failed:', error);
-    throw error;
+    // すでにステータスが設定されているエラーはそのまま再スロー
+    if (error.status) {
+      throw error;
+    }
+    // その他のエラーは一般的なエラーとして扱う
+    const generalError = new Error(error.message);
+    generalError.status = 500;  // ネットワークエラーなどの場合
+    throw generalError;
   }
 };
 
@@ -53,8 +62,20 @@ const api = {
         password_confirmation: userData.passwordConfirmation
       }
     };
-    
     return apiRequest('/users', {
+      method: 'POST',
+      body: JSON.stringify(formattedData)
+    });
+  },
+
+  login: (formData) => {
+    const formattedData = {
+      session:{
+        email: formData.email,
+        password: formData.password
+      }
+    };
+    return apiRequest('/sessions',{
       method: 'POST',
       body: JSON.stringify(formattedData)
     });

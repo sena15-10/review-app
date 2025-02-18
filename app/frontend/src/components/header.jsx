@@ -57,10 +57,12 @@ const Header = () => {
                             </>
                         ) : (
                             <>
-                                <button className="">
-                                    <LogIn size={20} />
-                                    <span>Login</span>
-                                </button>
+                                <Link to="/login">
+                                    <button className="">
+                                        <LogIn size={20} />
+                                        <span>Login</span>
+                                    </button>
+                                </Link>
                                 <Link to="/signup">
                                     <button className="">
                                         <UserPlus size={20} />
