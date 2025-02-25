@@ -5,50 +5,67 @@ import api from '../../config/api';
 
 const Session = () => {
     const navigate = useNavigate();
+    // ページロード時にlocalStorageから状態を復元
+    
     const [isLoading, setIsLoading] = useState(false);
-    const [loginCount, setLoginCount] = useState(1); //通常は五回デバック用
+    const [loginCount, setLoginCount] = useState(5); //通常は五回デバック用
     const [retryLoginTimer, setRetryLoginTimer] = useState(120);
-
+    
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     });
-
+    
     const [errors, setErrors] = useState({
         email: "",
         password: "",
         general: "",
         hasLogin: "",
     });
+    
+    useEffect(() => {
+        const savedLoginCount = localStorage.getItem('loginCount');
+        const savedRetryTimer = localStorage.getItem('retryLoginTimer');
+        
+        if (savedLoginCount) setLoginCount(parseInt(savedLoginCount));
+        if (savedRetryTimer) setRetryLoginTimer(parseInt(savedRetryTimer));
+    }, []);
 
+    // 状態が変更されたときにlocalStorageに保存
+    useEffect(() => {
+        localStorage.setItem('loginCount', loginCount);
+        localStorage.setItem('retryLoginTimer', retryLoginTimer);
+    }, [loginCount, retryLoginTimer]);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });       
     };
-
+    
     const startRetryTimer = () => {
         const timer = setInterval(() => {
             setRetryLoginTimer((prevTime) => {
                 if (prevTime <= 1) {
-                    clearInterval(timer);  // タイマーを明示的に停止
-                    setLoginCount(1);
-                    setRetryLoginTimer(120);
-                    setErrors(prev => ({
-                        ...prev,
-                        hasLogin: ""
-                    }));
-                    return 0;
+                    clearInterval(timer);  // タイマーを停止
+                    // 全てのstate更新を一括で行う
+                    setTimeout(() => {
+                        setLoginCount(1);
+                        setRetryLoginTimer(120);
+                        setErrors(prev => ({
+                            ...prev,
+                            hasLogin: ""
+                        }));
+                    }, 0);
+                    return 0;  // 最後の1秒は0を表示
                 }
                 return prevTime - 1;
             });
         }, 1000);
+    
+        return timer;
     };
 
     useEffect(() => {
         let timer;   
-        if (loginCount <= 0) {
-            timer = startRetryTimer();
-        }     
         // クリーンアップ関数
         return () => {
             if (timer) {
@@ -58,6 +75,13 @@ const Session = () => {
     }, [loginCount]); // loginCountが変更されたときに実行
 
     const handleSubmit = async (e) => {
+        //エラー初期化
+        setErrors({
+            email: "",
+            password: "",
+            general: "",
+            hasLogin: "",
+        });
         e.preventDefault();
         if (isLoading) return;
         
@@ -74,6 +98,7 @@ const Session = () => {
             const response = await api.login(formData);
             console.log('ログインしました');
             setLoginCount(5);
+            navigate("/top");
         } catch (error) {
             console.log(error.message);
             const newCount = loginCount - 1;
@@ -152,7 +177,7 @@ const Session = () => {
                 <button
                     type="submit"
                     className="submit-button"
-                    disabled={isLoading}
+                    disabled={isLoading || loginCount <= 0}
                 >
                     {isLoading ? "ログイン中..." : "ログイン"}
                 </button>

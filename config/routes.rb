@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         end
       end
       resources :sessions, only: [:create, :destroy]
+      resources :profiles, only: [:show, :create, :update]
     end
   end
   if Rails.env.development?

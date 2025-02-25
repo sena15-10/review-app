@@ -2,12 +2,15 @@ import React,{useState} from 'react';
 import { Link ,useLocation} from 'react-router-dom';
 import { Code2, MessageSquare, Home, Send, LogIn, UserPlus, LogOut, User,MessageSquareTextIcon } from 'lucide-react';
 const Header = () => {
-    const isLoggedIn = false;
+    const isLoggedIn = true;
     const hideButtonPaths = ["/login", "/signup"];
     const [isMenuOpen, setMenuOpen] = useState(false);
     const location = useLocation();
     const shouldHideButtons = hideButtonPaths.includes(location.pathname.toLowerCase());
-    
+    const isLogin = () => {
+        // ログインしているかどうかを判定
+
+    }
     const toggleMenu = () => {
         setMenuOpen(!isMenuOpen)
     }
@@ -50,10 +53,12 @@ const Header = () => {
                     {!shouldHideButtons && (
                         isLoggedIn ? (
                             <>
-                                <button>
-                                    <User size={20} />
-                                    <span><img src="" alt="" className='icon'/></span>
-                                </button>
+                                <Link to={`/profile`}>
+                                    <button>
+                                        <User size={20} />
+                                        <span><img src="" alt="" className='icon'/></span>
+                                    </button>
+                                </Link>
                             </>
                         ) : (
                             <>

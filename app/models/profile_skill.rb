@@ -1,0 +1,2 @@
+class ProfileSkill < ApplicationRecord
+end

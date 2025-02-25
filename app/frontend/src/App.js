@@ -5,6 +5,8 @@ import Footer from './components/footer';
 import LandingPage from './components/LandingPage';
 import SignUp from './components/sessionPage/signUp';
 import Session from "./components/sessionPage/session";
+import Profile from "./components/ProfilePage/profifle";
+import Top from "./components/topPage/top";
 import './assets/css/App.css';
 import './assets/css/reset.css';
 
@@ -13,6 +15,8 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
+        <Route path="/top" element={<Top />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/login" element={<Session />} />

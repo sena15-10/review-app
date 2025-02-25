@@ -1,3 +1,5 @@
+require 'jwt'
+
 class Api::V1::SessionsController < ApplicationController
     def create
         Rails.logger.info "Received params: #{params.inspect}"
@@ -9,21 +11,16 @@ class Api::V1::SessionsController < ApplicationController
             return
         end
         if user&.authenticate(session_params[:password])
-            if user.confirm_at?
+            if user.confirmed_at?
                 token = JWT.encode(
-                    {user_id: user_id,exp: 7.days.from_now.to_i},
+                    {user_id: user.id, exp: 7.days.from_now.to_i},
                     Rails.application.credentials.secret_key_base
                 )
 
                 user.update!(last_login_at: Time.current)
                 render json: {
                     message: "ログインに成功しました",
-                    token: token,
-                    user: {
-                        id: user.id,
-                        name: user.name,
-                        email: user.email
-                    }
+                    token: token
                 },status: :ok
             else
                 render json: { 

@@ -93,7 +93,40 @@ const api = {
       method: 'POST',
       body: JSON.stringify({ email })
     });
-  }
+  },
+
+  getCurrentUser: () => {
+    const token = localStorage.getItem('token');
+    return apiRequest('/me', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  },  // ここにカンマを追加
+  // 他のメソッドが続く...
+
+  updateProfile: (profileData) => {
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+    
+    if (profileData.avatar) {
+        formData.append('profile[avatar]', profileData.avatar);
+    }
+
+    Object.entries(profileData).forEach(([key, value]) => {
+        if (key !== 'avatar') {
+            formData.append(`profile[${key}]`, JSON.stringify(value));
+        }
+    });
+
+    return apiRequest('/profiles', {
+          method: 'PUT',
+          headers: {
+              'Authorization': `Bearer ${token}`
+          },
+          body: formData
+      });
+    }
 };
 
 export default api;
