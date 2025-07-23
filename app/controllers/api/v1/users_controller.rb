@@ -1,4 +1,10 @@
 class Api::V1::UsersController < ApplicationController
+    include JwtAuthenticatable
+    before_action :authenticate_user, only: [:show]
+
+    def show
+      render json: { user: current_user }, status: :ok
+    end
 
     def create
       #同じメールアドレスがあればjsonデータで返す
@@ -66,4 +72,4 @@ class Api::V1::UsersController < ApplicationController
 
   #JWTとは？
   #JSON Web Token（JWT） は、APIの認証やセッション管理 に使われるデータフォーマット。
-  #例えば、ログインしたらJWTを渡し、それを使ってAPIにアクセスできるようにする。        
+  #例えば、ログインしたらJWTを渡し、それを使ってAPIにアクセスできるようにする。

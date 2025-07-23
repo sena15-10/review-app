@@ -1,0 +1,135 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  -webkit-backdrop-filter:blur(5px);
+  backdrop-filter: blur(5px); /* 背景をぼかす */
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: linear-gradient(145deg, #232526, #414345); /* ダークなグラデーション背景 */
+  color: #f0f0f0;
+  padding: 40px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transform: scale(0.95);
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-icon-wrapper {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 25px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #8a2387, #e94057, #f27121); /* 鮮やかなグラデーション */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: iconPulse 2s infinite ease-in-out;
+}
+
+@keyframes iconPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(233, 64, 87, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 15px rgba(233, 64, 87, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(233, 64, 87, 0);
+  }
+}
+
+.modal-icon {
+  color: white;
+}
+
+.modal-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+.modal-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #c0c0c0;
+  margin-bottom: 30px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.modal-actions button {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 50px; /* 角を完全に丸くする */
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.register-now-button {
+  background: linear-gradient(45deg, #e94057, #f27121);
+  color: white;
+  box-shadow: 0 4px 15px rgba(239, 98, 98, 0.4);
+}
+
+.register-now-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(239, 98, 98, 0.6);
+}
+
+.close-button {
+  background-color: transparent;
+  color: #f0f0f0;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.close-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}

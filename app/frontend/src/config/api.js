@@ -126,7 +126,17 @@ const api = {
           },
           body: formData
       });
-    }
+    },
+
+    getProfile: (id) => {
+      const token = localStorage.getItem('token');
+      return apiRequest(`/profiles/${id}`, {
+          method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${token}`
+          }
+      });
+  }
 };
 
 export default api;

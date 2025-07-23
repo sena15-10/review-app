@@ -9,8 +9,13 @@ Rails.application.routes.draw do
           post 'resend_code'
         end
       end
+      resources :profiles, only: [:show, :create, :update] do
+        member do 
+          get :is_public
+        end
+      end
       resources :sessions, only: [:create, :destroy]
-      resources :profiles, only: [:show, :create, :update]
+      get '/me', to: 'users#show'
     end
   end
   if Rails.env.development?

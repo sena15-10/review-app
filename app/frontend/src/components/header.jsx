@@ -1,16 +1,13 @@
 import React,{useState} from 'react';
 import { Link ,useLocation} from 'react-router-dom';
 import { Code2, MessageSquare, Home, Send, LogIn, UserPlus, LogOut, User,MessageSquareTextIcon } from 'lucide-react';
+import { useUser } from '../context/userContext';
 const Header = () => {
-    const isLoggedIn = true;
+    const { user, isLoading } = useUser(); // Contextからユーザー情報とローディング状態を取得
     const hideButtonPaths = ["/login", "/signup"];
     const [isMenuOpen, setMenuOpen] = useState(false);
     const location = useLocation();
     const shouldHideButtons = hideButtonPaths.includes(location.pathname.toLowerCase());
-    const isLogin = () => {
-        // ログインしているかどうかを判定
-
-    }
     const toggleMenu = () => {
         setMenuOpen(!isMenuOpen)
     }
@@ -22,10 +19,10 @@ const Header = () => {
                     <h1 className="webName">Rview</h1>
                 </div>
                 <nav className={`navigation ${isMenuOpen ? 'active' : ''}`}>
-                    <a href="#" className="homeLink">
-                        <Home size={20} />
-                        <span>HOME</span>
-                    </a>
+                    <Link to="/top" className="homeLink">
+                      <Home size={20} />
+                      <span>HOME</span>
+                    </Link>
                     <a href="#" className="reviewLink">
                         <Code2 size={20} />
                         <span>REVIEW</span>
@@ -50,12 +47,13 @@ const Header = () => {
 
                 {/* Auth Buttons */}
                 <div className="auth">
-                    {!shouldHideButtons && (
-                        isLoggedIn ? (
+                    {/* ローディング中でなく、ボタンを隠す必要がない場合に表示 */}
+                    {!isLoading && !shouldHideButtons && (
+                        user ? ( // userオブジェクトが存在すればログイン済みと判断
                             <>
-                                <Link to={`/profile`}>
+                                <Link to={"/profile"}>
                                     <button>
-                                        <User size={20} />
+                                        <User size={25} />
                                         <span><img src="" alt="" className='icon'/></span>
                                     </button>
                                 </Link>

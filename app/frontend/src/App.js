@@ -5,24 +5,31 @@ import Footer from './components/footer';
 import LandingPage from './components/LandingPage';
 import SignUp from './components/sessionPage/signUp';
 import Session from "./components/sessionPage/session";
-import Profile from "./components/ProfilePage/profifle";
+import Profile from "./components/ProfilePage/Profile";
+import ProfileEdit from "./components/ProfilePage/ProfileEdit";
 import Top from "./components/topPage/top";
+import { UserProvider } from './context/userContext';
 import './assets/css/App.css';
 import './assets/css/reset.css';
 
+
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/top" element={<Top />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/signUp" element={<SignUp />} />
-        <Route path="/login" element={<Session />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/top" element={<Top />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/profile/:userId" element={<Profile />} />
+          <Route path="/profile/edit" element={<ProfileEdit />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/login" element={<Session />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 

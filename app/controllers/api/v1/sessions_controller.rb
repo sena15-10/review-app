@@ -20,7 +20,12 @@ class Api::V1::SessionsController < ApplicationController
                 user.update!(last_login_at: Time.current)
                 render json: {
                     message: "ログインに成功しました",
-                    token: token
+                    token: token,
+                    user: {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email
+                    }
                 },status: :ok
             else
                 render json: { 
