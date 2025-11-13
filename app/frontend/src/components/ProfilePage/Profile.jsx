@@ -5,7 +5,7 @@ import api from '../../config/api';
 import '../../assets/css/reset.css';
 import '../../assets/css/profile/profile.css';
 import { useUser } from "../../context/userContext";
-import { EditIcon, User2, Lock, Globe } from "lucide-react";
+import { EditIcon, User2, Lock, Globe, Award, Briefcase, Code, BookOpen } from "lucide-react";
 import NotRegisteredModal from './notRegisteredModal';
 
 const Profile = () => {
@@ -127,6 +127,66 @@ const Profile = () => {
                 )}
             </div>
             
+            {/* プロフィール統計 */}
+            {!isError && profile.basic.name && (
+                <>
+                    <div className="profile-stats">
+                        <div className="stat-card">
+                            <div className="stat-icon">
+                                <Code size={24} />
+                            </div>
+                            <div className="stat-info">
+                                <div className="stat-value">
+                                    {profile.skills.languages.length +
+                                     profile.skills.frameworks.length +
+                                     profile.skills.databases.length +
+                                     profile.skills.tools.length}
+                                </div>
+                                <div className="stat-label">スキル</div>
+                            </div>
+                        </div>
+
+                        <div className="stat-card">
+                            <div className="stat-icon">
+                                <Award size={24} />
+                            </div>
+                            <div className="stat-info">
+                                <div className="stat-value">
+                                    {profile.status.years_of_experience || 0}年
+                                </div>
+                                <div className="stat-label">経験年数</div>
+                            </div>
+                        </div>
+
+                        <div className="stat-card">
+                            <div className="stat-icon">
+                                <Briefcase size={24} />
+                            </div>
+                            <div className="stat-info">
+                                <div className="stat-value">
+                                    {profile.status.employment_status || '未設定'}
+                                </div>
+                                <div className="stat-label">ステータス</div>
+                            </div>
+                        </div>
+
+                        {profile.social_links.length > 0 && (
+                            <div className="stat-card">
+                                <div className="stat-icon">
+                                    <Globe size={24} />
+                                </div>
+                                <div className="stat-info">
+                                    <div className="stat-value">
+                                        {profile.social_links.length}
+                                    </div>
+                                    <div className="stat-label">ソーシャル</div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </>
+            )}
+
             {/* プロフィール情報表示 */}
             {!isError && profile.basic.name && (
                 <div className="profile-content">

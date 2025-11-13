@@ -97,6 +97,12 @@ const Session = () => {
         try {
             const response = await api.login(formData);
             console.log('ログインしました');
+
+            // トークンをlocalStorageに保存（自動ログイン用）
+            if (response.token) {
+                localStorage.setItem('token', response.token);
+            }
+
             setLoginCount(5);
             navigate("/top");
         } catch (error) {

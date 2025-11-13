@@ -51,10 +51,10 @@ const Header = () => {
                     {!isLoading && !shouldHideButtons && (
                         user ? ( // userオブジェクトが存在すればログイン済みと判断
                             <>
-                                <Link to={"/profile"}>
-                                    <button>
+                                <Link to={"/profile"} className="user-profile-link">
+                                    <button className="user-profile-button">
                                         <User size={25} />
-                                        <span><img src="" alt="" className='icon'/></span>
+                                        <span className="username">{user.name}</span>
                                     </button>
                                 </Link>
                             </>
