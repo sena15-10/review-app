@@ -58,6 +58,28 @@ const Top = () => {
     }, [user]);
 
     // ========================================
+    // プロフィール完成度を計算する関数
+    // ========================================
+    const calculateProfileCompletion = () => {
+        if (!profile) return 0;
+
+        let completedItems = 0;
+        const totalItems = 7; // チェック項目の総数
+
+        // 基本情報のチェック
+        if (profile.name) completedItems++;
+        if (profile.email) completedItems++;
+        if (profile.bio) completedItems++;
+        if (profile.avatar) completedItems++;
+        if (profile.skills && profile.skills.length > 0) completedItems++;
+        if (profile.experience) completedItems++;
+        if (profile.location) completedItems++;
+
+        // パーセンテージを計算（0-100）
+        return Math.round((completedItems / totalItems) * 100);
+    };
+
+    // ========================================
     // エラー時の表示
     // ========================================
     if (error) {
@@ -100,6 +122,41 @@ const Top = () => {
         { id: 4, title: 'メッセージ', icon: '💬', link: '#' }
     ];
 
+    // 通知リストのダミーデータ
+    const notifications = [
+        { id: 1, type: 'info', message: '新しいプロジェクトが追加されました', time: '1時間前', unread: true },
+        { id: 2, type: 'success', message: 'レビューが承認されました', time: '3時間前', unread: true },
+        { id: 3, type: 'warning', message: 'プロフィール更新を推奨します', time: '1日前', unread: false }
+    ];
+
+    // 実績・バッジのダミーデータ
+    const achievements = [
+        { id: 1, name: '初回レビュー', icon: '🌟', earned: true, description: '初めてのレビューを投稿' },
+        { id: 2, name: 'コントリビューター', icon: '💡', earned: true, description: '100件以上の貢献' },
+        { id: 3, name: 'プロジェクトマスター', icon: '🏆', earned: false, description: '10個以上のプロジェクトに参加' },
+        { id: 4, name: 'チームプレイヤー', icon: '🤝', earned: true, description: '5人以上とコラボレーション' }
+    ];
+
+    // 週間アクティビティデータ（過去7日間）
+    const weeklyActivity = [
+        { day: '月', value: 5 },
+        { day: '火', value: 8 },
+        { day: '水', value: 3 },
+        { day: '木', value: 12 },
+        { day: '金', value: 7 },
+        { day: '土', value: 4 },
+        { day: '日', value: 6 }
+    ];
+
+    // 最大値を取得してグラフの高さを正規化
+    const maxActivity = Math.max(...weeklyActivity.map(d => d.value));
+
+    // プロフィール完成度を計算
+    const profileCompletion = calculateProfileCompletion();
+
+    // 未読通知の数をカウント
+    const unreadCount = notifications.filter(n => n.unread).length;
+
     // ========================================
     // メインレンダリング
     // ========================================
@@ -125,6 +182,45 @@ const Top = () => {
                     </div>
                 </div>
             </header>
+
+            {/* ========================================
+                プロフィール完成度セクション（新機能）
+                ======================================== */}
+            <section className="profile-completion-section">
+                <div className="completion-card">
+                    <div className="completion-header">
+                        <div className="completion-info">
+                            <h3 className="completion-title">プロフィール完成度</h3>
+                            <p className="completion-subtitle">
+                                {profileCompletion === 100
+                                    ? '完璧です！'
+                                    : 'あと少しで完成です'}
+                            </p>
+                        </div>
+                        <div className="completion-percentage">
+                            {profileCompletion}%
+                        </div>
+                    </div>
+
+                    {/* プログレスバー */}
+                    <div className="progress-bar">
+                        <div
+                            className="progress-fill"
+                            style={{ width: `${profileCompletion}%` }}
+                        >
+                            {/* プログレスバーのアニメーション用の光沢エフェクト */}
+                            <div className="progress-shine"></div>
+                        </div>
+                    </div>
+
+                    {/* 完成度が100%未満の場合、改善提案を表示 */}
+                    {profileCompletion < 100 && (
+                        <p className="completion-hint">
+                            💡 プロフィールを完成させて、より多くの機会を得ましょう
+                        </p>
+                    )}
+                </div>
+            </section>
 
             {/* ========================================
                 統計カードセクション
@@ -206,6 +302,101 @@ const Top = () => {
                     </div>
                 </section>
             </div>
+
+            {/* ========================================
+                通知パネルセクション（新機能）
+                ======================================== */}
+            <section className="notifications-section">
+                <div className="section-header">
+                    <h2 className="section-title">通知</h2>
+                    {/* 未読通知数のバッジ */}
+                    {unreadCount > 0 && (
+                        <span className="notification-badge">{unreadCount}</span>
+                    )}
+                </div>
+                <div className="notifications-list">
+                    {notifications.map(notification => (
+                        <div
+                            key={notification.id}
+                            className={`notification-item notification-${notification.type} ${notification.unread ? 'unread' : ''}`}
+                        >
+                            {/* 通知タイプに応じたアイコン */}
+                            <div className="notification-icon">
+                                {notification.type === 'info' && 'ℹ️'}
+                                {notification.type === 'success' && '✅'}
+                                {notification.type === 'warning' && '⚠️'}
+                            </div>
+                            <div className="notification-content">
+                                <p className="notification-message">{notification.message}</p>
+                                <span className="notification-time">{notification.time}</span>
+                            </div>
+                            {/* 未読インジケーター */}
+                            {notification.unread && (
+                                <div className="unread-indicator"></div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* ========================================
+                週間アクティビティグラフセクション（新機能）
+                ======================================== */}
+            <section className="weekly-activity-section">
+                <h2 className="section-title">週間アクティビティ</h2>
+                <div className="activity-chart">
+                    {/* グラフの各バー */}
+                    {weeklyActivity.map((day, index) => (
+                        <div key={index} className="chart-bar-container">
+                            {/* バーの高さは値に応じて変動 */}
+                            <div
+                                className="chart-bar"
+                                style={{
+                                    height: `${(day.value / maxActivity) * 100}%`,
+                                    // アニメーション遅延を順番に設定
+                                    animationDelay: `${index * 0.1}s`
+                                }}
+                            >
+                                {/* バーの上に値を表示 */}
+                                <span className="chart-value">{day.value}</span>
+                            </div>
+                            {/* バーの下に曜日を表示 */}
+                            <span className="chart-label">{day.day}</span>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* ========================================
+                実績・バッジセクション（新機能）
+                ======================================== */}
+            <section className="achievements-section">
+                <h2 className="section-title">実績・バッジ</h2>
+                <div className="achievements-grid">
+                    {achievements.map(achievement => (
+                        <div
+                            key={achievement.id}
+                            className={`achievement-card ${achievement.earned ? 'earned' : 'locked'}`}
+                        >
+                            {/* バッジアイコン */}
+                            <div className="achievement-icon">
+                                {achievement.icon}
+                            </div>
+                            {/* バッジ情報 */}
+                            <div className="achievement-info">
+                                <h4 className="achievement-name">{achievement.name}</h4>
+                                <p className="achievement-description">{achievement.description}</p>
+                            </div>
+                            {/* 獲得済み/未獲得のステータス */}
+                            {achievement.earned ? (
+                                <div className="achievement-status earned-status">獲得済み</div>
+                            ) : (
+                                <div className="achievement-status locked-status">🔒</div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </section>
 
             {/* ========================================
                 推奨セクション
